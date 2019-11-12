@@ -1,51 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-
-#define SIZE 100
-
+#define MAX 100
+#define SWAP(a, b) int n=a;a=b;b=n;
 
 void main() {
 
-	int arr[SIZE];
-	int sameBigArea[SIZE];
+	int arr[MAX];
+	int len;
+	int i;
 
-	int sameBigCount = 0;
-	int buffer;
-	int max = 0;
-	int maxindex = 0;
+	scanf_s("%d", &len);
 
-	int width;
-	int i, j;
-
-	// initalize
-	srand(10);
-	width = 1;
-
-	// initialize
-	for (i = 0; i < SIZE; i++) {
-		arr[i] = rand() % 10;
+	for (i = 0; i < len; i++) {
+		scanf_s("%d", &arr[i]);
+	}
+	
+	for (i = 1; i < len-1; i += 2) {
+		if (arr[i-1] < arr[i + 1])	{ SWAP(arr[i], arr[i + 1]); }
+		else						{ SWAP(arr[i], arr[i - 1]); }
 	}
 
-	for (i = 0; i < SIZE - width; i++) {
-		buffer = 0;
-		
-		for (j = 0; j < width; j++)
-			buffer += arr[i + j];
-
-		if (max < buffer) {
-			max = buffer;
-			maxindex = i;
-			sameBigCount = 0;
-		}
-		if (max == buffer) {
-			sameBigArea[sameBigCount++] = i;
-		}
+	for (i = 0; i < len; i++) {
+		printf("%d, ", arr[i]);
 	}
+	printf("\n");
 
-	printf("구역 : ");
-	for (i = 0; i < sameBigCount; i++) {
-		printf("%d, ", sameBigArea[i]);
-	}
-	printf("\n잡음:%d마리\n", max);
 }
